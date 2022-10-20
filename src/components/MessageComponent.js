@@ -1,9 +1,28 @@
-function MessageComponent({text_h1, text_p}) {
+import React, {useState} from 'react';
+function MessageComponent({setMessage}) {
+   
+    const [text, setText] = useState('')
+    const [author, setAuthor] = useState('')
+   
+    const submitForm = (e) => {
+        e.preventDefault()
+        if((text != '') && (author != ''))
+        {
+            setMessage(prevstate => [...prevstate, {text: text, author: author}]);
+            setText('')
+            setAuthor('')
+        }
+    }
+
     return(
-        <div className="message_Box">
-            <h1 style={{color: 'green'}}>{text_h1}</h1>
-            <p style={{color: 'blue'}}>{text_p}</p>
-        </div>
+        
+        <form className="alignCenter" onSubmit={submitForm}>
+            <input placeholder = 'Имя' id = "text" value = {text} onChange = {(e) => setText(e.target.value)} />
+            
+            <input placeholder = 'Текст' id = "author" value = {author} onChange = {(e) => setAuthor(e.target.value)} />
+
+            <button type='submit'>Отправить</button>
+        </form>
     );
 }
 
