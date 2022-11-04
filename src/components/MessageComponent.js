@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
-function MessageComponent({setMessage}) {
+import { useTheme } from '@emotion/react';
+import InputAutoFocus from './InputAutoFocus';
+import { Button } from '@mui/material';
+
+function MessageComponent({messageList, setMessage}) {
    
     const [text, setText] = useState('')
     const [author, setAuthor] = useState('')
+
+    const theme = useTheme()
    
     const submitForm = (e) => {
         e.preventDefault()
-        if((text != '') && (author != ''))
+        if((text !== '') && (author !== ''))
         {
             setMessage(prevstate => [...prevstate, {text: text, author: author}]);
             setText('')
@@ -15,14 +21,17 @@ function MessageComponent({setMessage}) {
     }
 
     return(
-        
-        <form className="alignCenter" onSubmit={submitForm}>
-            <input placeholder = 'Имя' id = "text" value = {text} onChange = {(e) => setText(e.target.value)} />
-            
-            <input placeholder = 'Текст' id = "author" value = {author} onChange = {(e) => setAuthor(e.target.value)} />
+        <div style = {{background:theme.palette.secondary.main}}>
+            <form className="alignCenter" onSubmit={submitForm}>
+                              
+                <InputAutoFocus text = {text} setText = {setText} messageList = {messageList} />
 
-            <button type='submit'>Отправить</button>
-        </form>
+                <input placeholder = 'Автор' id = "author" value = {author} onChange = {(e) => setAuthor(e.target.value)} />
+
+                <Button variant="contained" type='submit'>Отправить</Button>
+                               
+            </form>
+        </div>
     );
 }
 
