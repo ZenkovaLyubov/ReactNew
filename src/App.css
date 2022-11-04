@@ -1,0 +1,11 @@
+.message_Box {
+  text-align: center;
+  border: 1px solid #ba3dba;
+
+}
+.app {
+  display: flex;
+  justify-content: space-around;
+}
+  
+
