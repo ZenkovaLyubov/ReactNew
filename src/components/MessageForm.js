@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import InputAutoFocus from './InputAutoFocus';
 import { Button } from '@mui/material';
 
-function MessageComponent({messageList, setMessage}) {
+function MessageForm({messageList, setMessage}) {
    
     const [text, setText] = useState('')
     const [author, setAuthor] = useState('')
@@ -35,4 +35,4 @@ function MessageComponent({messageList, setMessage}) {
     );
 }
 
-export default MessageComponent;
+export default MessageForm;
