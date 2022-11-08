@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ChatView from "../components/ChatView";
 import { useTheme } from '@emotion/react';
-// import MessageForm from '../components/MessageForm';
-// import MessageView from '../components/MessageView';
+import MessageForm from '../components/MessageForm';
+import MessageView from '../components/MessageView';
 import { useParams } from "react-router-dom";
 import { Button } from '@mui/material';
 
@@ -51,7 +51,6 @@ const ChatsPage = () => {
         
       }, [messageList])
 
-    // const maxId = Math.max(сhatList.id); 
     const AddChat = () => {
         let maxId = 0;
         if(chatList.length !== 0) {
@@ -63,10 +62,7 @@ const ChatsPage = () => {
     }
     const DelChat = () => {
         
-        console.log("chatId " + chatId);
-        console.log(chatList.filter(x => x.id !== Number(chatId)));
         setChatList(chatList.filter(x => x.id !== Number(chatId)));
-        
     }
     
     return (
@@ -81,19 +77,19 @@ const ChatsPage = () => {
             <div className='chatPage_right'>
 
                 <h2 style = {{color:theme.palette.primary.main}}>Сообщения</h2>
-                <div style = {{background:theme.palette.secondary.main}}>
+                {/* <div style = {{background:theme.palette.secondary.main}}>
                     {
                         chatId && chatList[index]?.messages.map((e, i) => <p key={i}>{e}</p>)
                         
                     }
-                </div>
-            </div>
+                </div> */}
             
-
-            {/* <MessageForm messageList = {messageList} setMessage = {setMessageList}></MessageForm>
-            {
-            messageList.map((e, i) => <MessageView author = {e.author} text = {e.text} key={i}></MessageView>)
-            } */}
+            
+                <MessageForm messageList = {messageList} setMessage = {setMessageList}></MessageForm>
+                {
+                messageList.map((e, i) => <MessageView author = {e.author} text = {e.text} key={i}></MessageView>)
+                }
+            </div>
 
         </div>
     )
