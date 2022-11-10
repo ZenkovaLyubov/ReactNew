@@ -9,44 +9,42 @@ import { Button } from '@mui/material';
 const ChatsPage = () => {
     const [chatList, setChatList] = useState([
         {
-          id: 1,
-          name: "chat1",
-          messages: ["Сообщение1 чата1", "Сообщение2 чата1", "Сообщение3 чата1"]
+          id: 1
         },
         {
-          id: 2,
-          name: "chat2",
-          messages: ["Сообщение1 чата2", "Сообщение2 чата2", "Сообщение3 чата2"]
+          id: 2
         },
         {
-          id: 3,
-          name: "chat3",
-          messages: ["Сообщение1 чата3", "Сообщение2 чата3", "Сообщение3 чата3"]
+          id: 3        
         },
         {
-          id: 4,
-          name: "chat4",
-          messages: ["Сообщение1 чата4", "Сообщение2 чата4", "Сообщение3 чата4"]
+          id: 4         
         }
       ])
-    const {chatId} = useParams()  
+    const [messageList, setMessageList] = useState([]);
+    const {chatId = 1} = useParams()  
+    let index = 0;
+    if(chatId){
+      index = chatList.findIndex(x => x.id === Number(chatId)) 
+    }
     
-    const index = chatList.findIndex(x => x.id === Number(chatId))  
     const theme = useTheme()
 
-    const [messageList, setMessageList] = useState([]);
+    
     const ROBOT_MESSAGE = 'Сообщение получено';
 
     useEffect(() => {
         if(messageList.length > 0)
         {
-          if(messageList[messageList.length-1].author !== 'Robot') {
-            const curMessageList=messageList.slice();
-             setTimeout(() => {
-              curMessageList.push({text: ROBOT_MESSAGE, author: 'Robot'});
-              setMessageList(curMessageList);
-             }, 1500)
-          }
+            if(messageList[messageList.length-1].author !== 'Robot') {
+                    
+                    const curMessageList=messageList.slice();
+                     setTimeout(() => {
+                      curMessageList.push({text: ROBOT_MESSAGE, author: 'Robot', id: index+1, name: `chat${index+1}`});
+                      setMessageList(curMessageList);
+                     }, 1500)
+                  }
+   
         }
         
       }, [messageList])
@@ -57,13 +55,18 @@ const ChatsPage = () => {
             maxId = Math.max(...chatList.map(x => x.id));
         }
         const newId = maxId + 1;
-        const newObj = {id: newId, name: `chat${newId}`, messages: [`Сообщение1 чатa${newId}`, `Сообщение2 чата${newId}`, `Сообщение3 чата${newId}`]}
+        const newObj = {id: newId}
         setChatList([...chatList, newObj]);
     }
     const DelChat = () => {
-        
+      if(typeof(chatId) == "string")
+      {
         setChatList(chatList.filter(x => x.id !== Number(chatId)));
+
+      }
+        
     }
+    const masIndex = messageList.filter(x => x.id === (index + 1));
     
     return (
         <div className='chatPage'>
@@ -84,10 +87,17 @@ const ChatsPage = () => {
                     }
                 </div> */}
             
-            
-                <MessageForm messageList = {messageList} setMessage = {setMessageList}></MessageForm>
+            {
+              chatList?.length
+                ?<MessageForm messageList = {messageList} setMessage = {setMessageList} index = {index}></MessageForm> : null
+
+            }
+                {/* <MessageForm messageList = {messageList} setMessage = {setMessageList} index = {index}></MessageForm> */}
                 {
-                messageList.map((e, i) => <MessageView author = {e.author} text = {e.text} key={i}></MessageView>)
+                    masIndex?.length
+                      ?masIndex.map((e, i) => <MessageView author = {e.author} text = {e.text} key={i}></MessageView>)  
+                        : null  
+                             
                 }
             </div>
 

@@ -7,7 +7,7 @@ const Toggler = () =>{
 
     return(
         <>
-            <input type='checkbox' value={isChecked} onChange = {()=>{
+            <input type='checkbox' value={isChecked} checked={isChecked} onChange = {()=>{
                 dispatch({type:'SWITCH_TOGGLE'})
              
             }}/>

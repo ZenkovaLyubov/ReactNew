@@ -5,7 +5,6 @@ const InputAutoFocus = (data) => {
 
     useEffect(()=>{
       ref.current?.focus()
-      console.log(ref)
     }, [ data.messageList])
 
     return(
