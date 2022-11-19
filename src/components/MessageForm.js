@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import { useTheme } from '@emotion/react';
 import InputAutoFocus from './InputAutoFocus';
 import { Button } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
+import { AddMessageList } from "../slices/messageSlice";
 
-function MessageForm({messageList, setMessage, index}) {
+function MessageForm({index}) {
    
     const [text, setText] = useState('')
     const [author, setAuthor] = useState('')
+
+    const messageList = useSelector(state => state.messageList);
+    const dispatch = useDispatch();
 
     const theme = useTheme()
    
@@ -14,7 +19,7 @@ function MessageForm({messageList, setMessage, index}) {
         e.preventDefault()
         if((text !== '') && (author !== ''))
         {
-            setMessage(prevstate => [...prevstate, {id: index+1, name:`chat${index+1}`, text: text, author: author}]);
+            dispatch(AddMessageList({id: index+1, text: text, author: author}));
             setText('')
             setAuthor('')
         }

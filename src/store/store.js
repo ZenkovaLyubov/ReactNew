@@ -1,10 +1,16 @@
 import {applyMiddleware, createStore, compose} from "redux";
-import { toggleReducer } from "./profile/reducer";
 import thunkMiddleware from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit'
+import {profileReducer} from '../slices/slices'
+import {chatReducer} from '../slices/chatSlice'
+import {messageReducer} from '../slices/messageSlice'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = configureStore({
+    reducer:{
+        profile:profileReducer,
+        chat:chatReducer,
+        message:messageReducer
+    }
+})
 
-const store = createStore(toggleReducer,composeEnhancers(applyMiddleware(thunkMiddleware)))
-window._store_ = store;
-
-export default store;
+export default store

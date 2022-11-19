@@ -1,10 +1,10 @@
-export const toggleReducer = (state = false,action) => {
-    switch(action.type){
-        case'SWITCH_TOGGLE': 
+// export const toggleReducer = (state = false,action) => {
+//     switch(action.type){
+//         case'SWITCH_TOGGLE': 
             
-            return !state
+//             return !state
 
-        default:return state
-    }
+//         default:return state
+//     }
   
-}
+// }
