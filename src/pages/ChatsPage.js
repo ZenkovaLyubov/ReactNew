@@ -20,10 +20,6 @@ const ChatsPage = () => {
   const messageList = useSelector(state => state.message)
     
     let {chatId = 1} = useParams()  
-    let index = 0;
-    if(chatId){
-      index = chatList.findIndex(x => x.id === Number(chatId)) 
-    }
     
     const theme = useTheme()
     
