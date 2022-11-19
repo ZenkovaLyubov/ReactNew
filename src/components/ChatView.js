@@ -18,23 +18,22 @@ const ChatView = ({chatId}) => {
        
     };
     
-    return(
-        <div className='classTemp'>
-            <List component="nav" aria-label="main mailbox folders">
-            {
-                chatList.map((e, i) =>  
-                <ListItemButton key={e.id}
-                selected={selectedIndex === e.id}
-                onClick={(event) => handleListItemClick(event, e.id)}
-                >
-                    <ListItem button component={Link} to={`${e.id}`} key={e.id}>
-                        <ListItemText primary={`Чат_${e.id}`}/>
-                        
-                    </ListItem>
-                </ListItemButton>)
-            }
-            </List>
-        </div>
-    )
+    return (
+			<div className="classTemp">
+				<List component="nav" aria-label="main mailbox folders">
+					{chatList.map((e, i) => (
+						<ListItemButton
+							key={e.id}
+							selected={selectedIndex === e.id}
+							onClick={(event) => handleListItemClick(event, e.id)}
+						>
+							<ListItem button component={Link} to={`${e.id}`} key={e.id}>
+								<ListItemText primary={`Чат_${e.id}`} />
+							</ListItem>
+						</ListItemButton>
+					))}
+				</List>
+			</div>
+		)
 }
 export default ChatView;

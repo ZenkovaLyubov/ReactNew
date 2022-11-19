@@ -6,11 +6,11 @@ import {chatReducer} from '../slices/chatSlice'
 import {messageReducer} from '../slices/messageSlice'
 
 const store = configureStore({
-    reducer:{
-        profile:profileReducer,
-        chat:chatReducer,
-        message:messageReducer
-    }
+	reducer: {
+		profile: profileReducer,
+		chat: chatReducer,
+		message: messageReducer,
+	},
 })
 
 export default store

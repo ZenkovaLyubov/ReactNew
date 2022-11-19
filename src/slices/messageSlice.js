@@ -8,8 +8,7 @@ const messageSlice = createSlice({
            return [...state, action.payload]
         },
         DelMessageList:(state, action)=>{
-           return [...state.filter(x => x.id !== Number(action.payload))]
-             
+            return [...state.filter((x) => x.id !== Number(action.payload))]
         }
     }
 })

@@ -3,9 +3,9 @@ import React, {useEffect, useRef} from 'react';
 const InputAutoFocus = (data) => {
     const ref = useRef(null)
 
-    useEffect(()=>{
-      ref.current?.focus()
-    }, [data.messageList])
+    useEffect(() => {
+			ref.current?.focus()
+		}, [data.messageList])
 
     return(
       <>

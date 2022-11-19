@@ -7,20 +7,19 @@ import { useTheme } from '@emotion/react';
 
 const NavBar = () => {
     const [menuList, setMenuList] = useState([
-        {
-            href: '/',
-            name: 'Главная'
-        },
-        {
-            href: '/chats',
-            name: 'Чаты'
-        },
-        {
-            href: '/profile',
-            name: 'Профиль'
-        }
-        
-    ])
+			{
+				href: "/",
+				name: "Главная",
+			},
+			{
+				href: "/chats",
+				name: "Чаты",
+			},
+			{
+				href: "/profile",
+				name: "Профиль",
+			},
+		])
     const theme = useTheme()
         
     return(

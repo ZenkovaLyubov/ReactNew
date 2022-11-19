@@ -43,31 +43,34 @@ function App() {
   const [isDark, setIsDark] = useState(false)
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <div className='app'>
-      <div className="left">
-        {/* <ChatView chatList={chatList}></ChatView> */}
-        <NavBar/>
-      </div>
-      
-      <div className="right">
-        <Routes>
-          <Route path='/' element = {<HomePage />} />
-          <Route path='chats' element = {<ChatsPage/>}>
-            <Route path=':chatId' element = {<ChatsPage/>}/>
-          </Route>
-          <Route path='*' element = {<NotFoundPage />} />
-          <Route path='profile' element = {<ProfilePage />} />
-          
-        </Routes>
-        <Button variant="contained" onClick={()=>{setIsDark(pervstate => !pervstate)}}>Сменить тему</Button>
-        
-      </div>
-      
-      </div>
-    </ThemeProvider>
-   
-  );
+		<ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+			<div className="app">
+				<div className="left">
+					{/* <ChatView chatList={chatList}></ChatView> */}
+					<NavBar />
+				</div>
+
+				<div className="right">
+					<Routes>
+						<Route path="/" element={<HomePage />} />
+						<Route path="chats" element={<ChatsPage />}>
+							<Route path=":chatId" element={<ChatsPage />} />
+						</Route>
+						<Route path="*" element={<NotFoundPage />} />
+						<Route path="profile" element={<ProfilePage />} />
+					</Routes>
+					<Button
+						variant="contained"
+						onClick={() => {
+							setIsDark((pervstate) => !pervstate)
+						}}
+					>
+						Сменить тему
+					</Button>
+				</div>
+			</div>
+		</ThemeProvider>
+	)
 }
 
 export default App;

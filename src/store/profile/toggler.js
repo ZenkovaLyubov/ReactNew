@@ -6,15 +6,19 @@ const Toggler = () =>{
     const isChecked = useSelector(state => state.profile)
     const dispatch = useDispatch()
 
-    return(
-        <>
-            <input type='checkbox' value={isChecked} checked={isChecked} onChange = {()=>{
-                // dispatch({type:'SWITCH_TOGGLE'})
-                dispatch(toggleCheck())
-             
-            }}/>
-        </>
-    )
+    return (
+			<>
+				<input
+					type="checkbox"
+					value={isChecked}
+					checked={isChecked}
+					onChange={() => {
+						// dispatch({type:'SWITCH_TOGGLE'})
+						dispatch(toggleCheck())
+					}}
+				/>
+			</>
+		)
 }
 
 export default Toggler

@@ -25,20 +25,28 @@ function MessageForm({index}) {
         }
     }
 
-    return(
-        <div style = {{background:theme.palette.secondary.main}}>
-                       
-            <form className="alignCenter" onSubmit={submitForm}>
-                              
-                <InputAutoFocus text = {text} setText = {setText} messageList = {messageList} />
+    return (
+			<div style={{ background: theme.palette.secondary.main }}>
+				<form className="alignCenter" onSubmit={submitForm}>
+					<InputAutoFocus
+						text={text}
+						setText={setText}
+						messageList={messageList}
+					/>
 
-                <input placeholder = 'Автор' id = "author" value = {author} onChange = {(e) => setAuthor(e.target.value)} />
+					<input
+						placeholder="Автор"
+						id="author"
+						value={author}
+						onChange={(e) => setAuthor(e.target.value)}
+					/>
 
-                <Button variant="contained" type='submit'>Отправить</Button>
-                               
-            </form>
-        </div>
-    );
+					<Button variant="contained" type="submit">
+						Отправить
+					</Button>
+				</form>
+			</div>
+		)
 }
 
 export default MessageForm;
