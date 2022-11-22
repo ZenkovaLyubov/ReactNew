@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  applyMiddleware,
-} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 
 export const robotMessage = createAsyncThunk(

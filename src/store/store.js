@@ -1,28 +1,47 @@
 import { applyMiddleware, createStore, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import {
+  configureStore,
+  getDefaultMiddleware,
+  combineReducers,
+} from '@reduxjs/toolkit'
 import { profileReducer } from '../slices/slices'
 import { chatReducer } from '../slices/chatSlice'
 import { messageReducer } from '../slices/messageSlice'
-// import {
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from 'redux-persist'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import hardSet from 'redux-persist/es/stateReconciler/hardSet'
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  stateReconciler: hardSet,
+}
+
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  chat: chatReducer,
+  message: messageReducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-  reducer: {
-    profile: profileReducer,
-    chat: chatReducer,
-    message: messageReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
 })

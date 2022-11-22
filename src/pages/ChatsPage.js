@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ChatView from '../components/ChatView'
 import { useTheme } from '@emotion/react'
 import MessageForm from '../components/MessageForm'
@@ -8,7 +8,6 @@ import { Button } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { addChatList } from '../slices/chatSlice'
 import { delChatList } from '../slices/chatSlice'
-import { AddMessageList } from '../slices/messageSlice'
 import { DelMessageList } from '../slices/messageSlice'
 import { useNavigate } from 'react-router-dom'
 import { robotMessage } from '../slices/messageSlice'
@@ -25,23 +24,7 @@ const ChatsPage = () => {
 
   const theme = useTheme()
 
-  //   const ROBOT_MESSAGE = 'Сообщение получено'
-
   useEffect(() => {
-    // if (messageList.length > 0) {
-    //   if (messageList[messageList.length - 1].author !== 'Robot') {
-    //     setTimeout(() => {
-    //       dispatch(
-    //         AddMessageList({
-    //           text: ROBOT_MESSAGE,
-    //           author: 'Robot',
-    //           id: Number(chatId),
-    //         })
-    //       )
-    //     }, 1500)
-    //   }
-    // }
-
     dispatch(robotMessage({ messageList, chatId }))
   }, [messageList])
 
