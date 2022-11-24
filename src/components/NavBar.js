@@ -19,6 +19,10 @@ const NavBar = () => {
       href: '/profile',
       name: 'Профиль',
     },
+    {
+      href: '/posts',
+      name: 'Статьи',
+    },
   ])
   const theme = useTheme()
 

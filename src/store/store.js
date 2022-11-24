@@ -8,6 +8,7 @@ import {
 import { profileReducer } from '../slices/slices'
 import { chatReducer } from '../slices/chatSlice'
 import { messageReducer } from '../slices/messageSlice'
+import { postsReducer } from '../slices/postsSlice'
 import {
   persistStore,
   persistReducer,
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   chat: chatReducer,
   message: messageReducer,
+  posts: postsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

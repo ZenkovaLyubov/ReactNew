@@ -7,6 +7,8 @@ import ChatsPage from './pages/ChatsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProfilePage from './pages/ProfilePage'
 import NavBar from './components/NavBar'
+import PostsPage from './pages/PostsPage'
+import { fetchPosts } from './slices/postsSlice'
 
 const darkTheme = createTheme({
   palette: {
@@ -57,6 +59,7 @@ function App() {
             </Route>
             <Route path='*' element={<NotFoundPage />} />
             <Route path='profile' element={<ProfilePage />} />
+            <Route path='posts' element={<PostsPage />} />
           </Routes>
           <Button
             variant='contained'
