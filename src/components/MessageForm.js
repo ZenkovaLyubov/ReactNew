@@ -2,21 +2,22 @@ import React, { useState } from 'react'
 import { useTheme } from '@emotion/react'
 import InputAutoFocus from './InputAutoFocus'
 import { Button } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { AddMessageList } from '../slices/messageSlice'
+import { addMessagesFB } from '../firebase/funcs'
 
-function MessageForm({ index }) {
+function MessageForm({ index, setMessageList, user }) {
   const [text, setText] = useState('')
   const [author, setAuthor] = useState('')
-
-  const dispatch = useDispatch()
 
   const theme = useTheme()
 
   const submitForm = (e) => {
     e.preventDefault()
     if (text !== '' && author !== '') {
-      dispatch(AddMessageList({ id: index + 1, text: text, author: author }))
+      addMessagesFB({ id: index + 1, text: text, author: author, user: user })
+      setMessageList((prevstate) => [
+        ...prevstate,
+        { id: index + 1, text: text, author: author, user: user },
+      ])
       setText('')
       setAuthor('')
     }

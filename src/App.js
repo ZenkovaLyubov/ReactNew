@@ -9,6 +9,9 @@ import ProfilePage from './pages/ProfilePage'
 import NavBar from './components/NavBar'
 import PostsPage from './pages/PostsPage'
 import { fetchPosts } from './slices/postsSlice'
+import LoginPage from './pages/LoginPage'
+import { margin } from '@mui/system'
+import RecordsPage from './pages/RecordsPage'
 
 const darkTheme = createTheme({
   palette: {
@@ -54,6 +57,8 @@ function App() {
         <div className='right'>
           <Routes>
             <Route path='/' element={<HomePage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/list' element={<RecordsPage />} />
             <Route path='chats' element={<ChatsPage />}>
               <Route path=':chatId' element={<ChatsPage />} />
             </Route>

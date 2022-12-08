@@ -4,10 +4,9 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-const ChatView = ({ chatId }) => {
-  const chatList = useSelector((state) => state.chat)
+const ChatView = ({ chatId, chatList, user }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(chatId)
 
   const handleListItemClick = (
@@ -20,17 +19,19 @@ const ChatView = ({ chatId }) => {
   return (
     <div className='classTemp'>
       <List component='nav' aria-label='main mailbox folders'>
-        {chatList.map((e, i) => (
-          <ListItemButton
-            key={e.id}
-            selected={selectedIndex === e.id}
-            onClick={(event) => handleListItemClick(event, e.id)}
-          >
-            <ListItem button component={Link} to={`${e.id}`} key={e.id}>
-              <ListItemText primary={`Чат_${e.id}`} />
-            </ListItem>
-          </ListItemButton>
-        ))}
+        {chatList.map((e, i) =>
+          e.user === user ? (
+            <ListItemButton
+              key={e.id}
+              selected={selectedIndex === e.id}
+              onClick={(event) => handleListItemClick(event, e.id)}
+            >
+              <ListItem button component={Link} to={`${e.id}`} key={e.id}>
+                <ListItemText primary={`Чат_${e.id}`} />
+              </ListItem>
+            </ListItemButton>
+          ) : null
+        )}
       </List>
     </div>
   )

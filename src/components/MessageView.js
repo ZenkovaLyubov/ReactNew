@@ -6,6 +6,6 @@ const MessageView = ({ author, text }) => {
       <p>{text}</p>
       <hr />
     </div>
-  )
+  ) 
 }
 export default MessageView

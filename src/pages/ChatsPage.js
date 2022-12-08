@@ -5,27 +5,44 @@ import MessageForm from '../components/MessageForm'
 import MessageView from '../components/MessageView'
 import { useParams } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { addChatList } from '../slices/chatSlice'
-import { delChatList } from '../slices/chatSlice'
-import { DelMessageList } from '../slices/messageSlice'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { robotMessage } from '../slices/messageSlice'
+import { getAllChats, addChatFB, getAllMessages } from '../firebase/funcs'
+import { useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
+import { Navigate } from 'react-router-dom'
 
 const ChatsPage = () => {
-  const navigate = useNavigate()
-
-  const chatList = useSelector((state) => state.chat)
   const dispatch = useDispatch()
+  const isAuth = useAuth()
+  const user = isAuth.email
 
-  const messageList = useSelector((state) => state.message)
+  const [chatList, setChatList] = useState([])
+  const [messageList, setMessageList] = useState([])
+
+  const getPostsHandler = async () => {
+    let data = await getAllChats()
+    setChatList(data)
+  }
+
+  useEffect(() => {
+    getPostsHandler()
+  }, [])
+
+  useEffect(() => {
+    getPostsHandlerMess()
+  }, [])
+  const getPostsHandlerMess = async () => {
+    let data = await getAllMessages()
+    setMessageList(data)
+  }
 
   let { chatId = 1 } = useParams()
 
   const theme = useTheme()
 
   useEffect(() => {
-    dispatch(robotMessage({ messageList, chatId }))
+    dispatch(robotMessage({ messageList, chatId, setMessageList, user }))
   }, [messageList])
 
   const AddChat = () => {
@@ -34,58 +51,55 @@ const ChatsPage = () => {
       maxId = Math.max(...chatList.map((x) => x.id))
     }
     const newId = maxId + 1
-    const newObj = { id: newId }
-    dispatch(addChatList(newObj))
-  }
-  const DelChat = () => {
-    if (typeof chatId == 'string') {
-      dispatch(delChatList(chatId))
-      dispatch(DelMessageList(chatId))
+    const newObj = { id: newId, user: user }
 
-      let maxId = 0
-      if (chatList.length > 1) {
-        const chl = chatList.filter((x) => x.id !== Number(chatId))
-        maxId = Math.max(...chl.map((x) => x.id))
-        navigate(`/chats/${maxId}`)
-        chatId = maxId
-      }
-      if (chatList.length === 1) {
-        navigate(`/chats`)
-      }
-    }
+    setChatList((prevstate) => [...prevstate, newObj])
+    addChatFB(newObj)
   }
 
-  const masIndex = messageList.filter((x) => x.id === Number(chatId))
+  const masIndex = messageList.filter(
+    (x) => x.id === Number(chatId) && x.user === user
+  )
 
-  return (
+  return isAuth.isAuth ? (
     <div className='chatPage'>
       <div className='chatPage_left'>
         <h1 style={{ color: theme.palette.primary.main }}>Выберите чат</h1>
         <Button variant='contained' onClick={AddChat}>
           + чат
         </Button>
-        <Button variant='contained' onClick={DelChat}>
-          - чат
-        </Button>
-        <ChatView chatId={Number(chatId)} />
+
+        <ChatView
+          chatId={Number(chatId)}
+          chatList={chatList}
+          user={isAuth.email}
+        />
       </div>
       <div className='chatPage_right'>
         <h2 style={{ color: theme.palette.primary.main }}>Сообщения</h2>
 
         {chatList?.length ? (
-          <MessageForm index={Number(chatId - 1)}></MessageForm>
+          <MessageForm
+            index={Number(chatId - 1)}
+            setMessageList={setMessageList}
+            user={user}
+          ></MessageForm>
         ) : null}
         {masIndex?.length
-          ? masIndex.map((e, i) => (
-              <MessageView
-                author={e.author}
-                text={e.text}
-                key={i}
-              ></MessageView>
-            ))
+          ? masIndex.map((e, i) =>
+              e.user === user ? (
+                <MessageView
+                  author={e.author}
+                  text={e.text}
+                  key={i}
+                ></MessageView>
+              ) : null
+            )
           : null}
       </div>
     </div>
+  ) : (
+    <Navigate to={'/login'} />
   )
 }
 export default ChatsPage

@@ -11,7 +11,6 @@ const Toggler = () => {
       value={isChecked}
       checked={isChecked}
       onChange={() => {
-        // dispatch({type:'SWITCH_TOGGLE'})
         dispatch(toggleCheck())
       }}
     />

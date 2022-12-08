@@ -1,20 +1,35 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { useSelector, useDispatch } from 'react-redux'
+import { addMessagesFB } from '../firebase/funcs'
 
 export const robotMessage = createAsyncThunk(
   'message/robotMessage',
-  async function ({ messageList, chatId }, { rejectWithValue, dispatch }) {
+  async function (
+    { messageList, chatId, setMessageList, user },
+    { rejectWithValue, dispatch }
+  ) {
     const ROBOT_MESSAGE = 'Сообщение получено'
     if (messageList.length > 0) {
-      if (messageList[messageList.length - 1].author !== 'Robot') {
+      if (
+        messageList[messageList.length - 1].author !== 'Robot' &&
+        messageList[messageList.length - 1].user === user &&
+        messageList.length % 2 !== 0
+      ) {
         setTimeout(() => {
-          dispatch(
-            AddMessageList({
+          addMessagesFB({
+            text: ROBOT_MESSAGE,
+            author: 'Robot',
+            id: Number(chatId),
+            user: user,
+          })
+          setMessageList((prevstate) => [
+            ...prevstate,
+            {
               text: ROBOT_MESSAGE,
               author: 'Robot',
               id: Number(chatId),
-            })
-          )
+              user: user,
+            },
+          ])
         }, 1500)
       }
     }
@@ -24,19 +39,12 @@ export const robotMessage = createAsyncThunk(
 const messageSlice = createSlice({
   name: 'message',
   initialState: [],
-  reducers: {
-    AddMessageList: (state, action) => {
-      return [...state, action.payload]
-    },
-    DelMessageList: (state, action) => {
-      return [...state.filter((x) => x.id !== Number(action.payload))]
-    },
-  },
+  reducers: {},
   extraReducers: {
     [robotMessage.pending]: () => console.log('pending'),
     [robotMessage.fulfilled]: () => console.log('fullfiiied'),
     [robotMessage.rejected]: () => console.log('rejected'),
   },
 })
-export const { AddMessageList, DelMessageList } = messageSlice.actions
+export const {} = messageSlice.actions
 export const messageReducer = messageSlice.reducer

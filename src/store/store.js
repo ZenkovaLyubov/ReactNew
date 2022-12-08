@@ -21,6 +21,7 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import hardSet from 'redux-persist/es/stateReconciler/hardSet'
+import { userReducer } from '../slices/userSlice'
 
 const persistConfig = {
   key: 'root',
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   chat: chatReducer,
   message: messageReducer,
   posts: postsReducer,
+  user: userReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -12,6 +12,14 @@ const NavBar = () => {
       name: 'Главная',
     },
     {
+      href: '/login',
+      name: 'Страница логина',
+    },
+    {
+      href: '/list',
+      name: 'Список записей',
+    },
+    {
       href: '/chats',
       name: 'Чаты',
     },
