@@ -4,7 +4,6 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 
 const ChatView = ({ chatId, chatList, user }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(chatId)

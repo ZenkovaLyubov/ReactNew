@@ -2,7 +2,7 @@ const MessageView = ({ author, text }) => {
   return (
     <div className='alignCenter'>
       <hr />
-      <h1>{author}</h1>
+      <h2>{author}</h2>
       <p>{text}</p>
       <hr />
     </div>

@@ -23,7 +23,7 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
-    status: false,
+    status: null,
     err: null,
   },
   redusers: {},
@@ -34,6 +34,7 @@ const postsSlice = createSlice({
     },
     [fetchPosts.fulfilled]: (state, action) => {
       state.posts = [...action.payload]
+      console.log(state.posts)
       state.status = 'resolved'
       state.err = null
     },

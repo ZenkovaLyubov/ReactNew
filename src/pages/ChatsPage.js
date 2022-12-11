@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import ChatView from '../components/ChatView'
 import { useTheme } from '@emotion/react'
 import MessageForm from '../components/MessageForm'
@@ -27,6 +27,7 @@ const ChatsPage = () => {
 
   useEffect(() => {
     getPostsHandler()
+    console.log('test')
   }, [])
 
   useEffect(() => {

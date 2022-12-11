@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 import { useAuth } from '../hooks/useAuth'
 import { createUserThunk, loginThunk } from '../slices/userSlice'
 
-function LoginForm() {
+const LoginForm = () => {
+  // function LoginForm() {
   const theme = useTheme()
 
   const isAuth = useAuth().isAuth
