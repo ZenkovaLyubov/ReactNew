@@ -1,0 +1,31 @@
+.message_Box {
+  text-align: center;
+  border: 1px solid #ba3dba;
+
+}
+.app {
+  display: flex;
+  
+}
+.left {
+  margin-right: 120px;
+  margin-top: 10px;
+}
+.navBar {
+  display: flex;
+  flex-direction: column;
+}
+.chatPage {
+  display: flex;
+  justify-content: space-around;
+}
+.chatPage_left {
+  
+  margin-right: 60px;
+}
+.chatPage_right {
+  margin-top: 60px;
+}
+
+  
+
